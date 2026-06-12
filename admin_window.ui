@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminWindow</class>
+ <widget class="QMainWindow" name="AdminWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Администратор – Магазин обуви</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_products">
+       <attribute name="title">
+        <string>Товары</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_products">
+        <item>
+         <layout class="QHBoxLayout" name="productsSearchLayout">
+          <item>
+           <widget class="QLabel" name="label_search">
+            <property name="text">
+             <string>Поиск:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="search_input">
+            <property name="placeholderText">
+             <string>Введите текст...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_supplier">
+            <property name="text">
+             <string>Поставщик:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="supplier_combo">
+            <item>
+             <property name="text">
+              <string>Все поставщики</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ООО &quot;Туфли-Трейд&quot;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ИП &quot;Ботинки Опт&quot;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ООО &quot;Сапоги Плюс&quot;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Склад &quot;Кроссовки.ру&quot;</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_sort">
+            <property name="text">
+             <string>Сортировка по кол-ву:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="sort_combo">
+            <item>
+             <property name="text">
+              <string>Без сортировки</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>По возрастанию</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>По убыванию</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="menu_list">
+          <property name="styleSheet">
+           <string notr="true">color: black;</string>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>170</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="tab_orders_2">
+          <item>
+           <widget class="QPushButton" name="add_product_btn">
+            <property name="text">
+             <string>Добавить товар</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="edit_product_btn">
+            <property name="text">
+             <string>Редактировать</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_product_btn">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="stretch_products" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_orders">
+       <attribute name="title">
+        <string>Заказы</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_orders">
+        <item>
+         <widget class="QTableWidget" name="orders_list">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="showGrid">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>100</number>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="tab_orders_3">
+          <item>
+           <widget class="QPushButton" name="add_order_btn">
+            <property name="text">
+             <string>Добавить заказ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="edit_order_btn">
+            <property name="text">
+             <string>Редактировать</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_order_btn">
+            <property name="text">
+             <string>Удалить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="stretch_orders" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="logout_button">
+      <property name="text">
+       <string>Выйти из системы</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

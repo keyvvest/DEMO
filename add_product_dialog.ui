@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddProductDialog</class>
+ <widget class="QDialog" name="AddProductDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Товар</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_name">
+       <property name="text">
+        <string>Наименование:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="name_input"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_category">
+       <property name="text">
+        <string>Категория:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="category_combo">
+       <item>
+        <property name="text">
+         <string>Туфли</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Ботинки</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Сапоги</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Кроссовки</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Сандалии</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_description">
+       <property name="text">
+        <string>Описание:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QTextEdit" name="description_input"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_manufacturer">
+       <property name="text">
+        <string>Производитель:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="manufacturer_combo">
+       <item>
+        <property name="text">
+         <string>Фабрика &quot;Обувь-Стиль&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ЗАО &quot;Комфорт&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ООО &quot;Лидер&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ИП &quot;Классика&quot;</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_supplier">
+       <property name="text">
+        <string>Поставщик:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="supplier_combo">
+       <item>
+        <property name="text">
+         <string>ООО &quot;Туфли-Трейд&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ИП &quot;Ботинки Опт&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ООО &quot;Сапоги Плюс&quot;</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Склад &quot;Кроссовки.ру&quot;</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_price">
+       <property name="text">
+        <string>Цена (₽):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QDoubleSpinBox" name="price_input">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>999999.989999999990687</double>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_unit">
+       <property name="text">
+        <string>Ед. измерения:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="unit_combo">
+       <item>
+        <property name="text">
+         <string>пара</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>шт.</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_quantity">
+       <property name="text">
+        <string>Количество на складе:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QSpinBox" name="quantity_input">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_discount">
+       <property name="text">
+        <string>Скидка (%):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QDoubleSpinBox" name="discount_input">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_image">
+       <property name="text">
+        <string>Фото товара:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="image_path_edit">
+       <property name="placeholderText">
+        <string>images/picture.png</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="save_button">
+       <property name="text">
+        <string>Сохранить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancel_button">
+       <property name="text">
+        <string>Отмена</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

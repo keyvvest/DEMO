@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OrderDialog</class>
+ <widget class="QDialog" name="OrderDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>350</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Заказ</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_article">
+       <property name="text">
+        <string>Артикул:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="article_edit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_status">
+       <property name="text">
+        <string>Статус заказа:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="status_combo">
+       <item>
+        <property name="text">
+         <string>Новый</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>В обработке</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Отправлен</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Доставлен</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Завершен</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Отменен</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_address">
+       <property name="text">
+        <string>Адрес пункта выдачи:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="address_edit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_order_date">
+       <property name="text">
+        <string>Дата заказа:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDateEdit" name="order_date_edit">
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_delivery_date">
+       <property name="text">
+        <string>Дата доставки:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QDateEdit" name="delivery_date_edit">
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QPushButton" name="save_button">
+       <property name="text">
+        <string>Сохранить</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QPushButton" name="cancel_button">
+       <property name="text">
+        <string>Отменить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
