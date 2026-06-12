@@ -23,7 +23,6 @@
 
 ### 1. Установка зависимостей
 
-```bash
 pip install pymysql PyQt6
 2. Импорт базы данных
 Создайте базу MySQL shoestore
