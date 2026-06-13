@@ -1526,24 +1526,24 @@ if __name__ == "__main__":
 #   <layout class="QVBoxLayout" name="verticalLayout">
 #    <item>
 #     <layout class="QFormLayout" name="formLayout">
-#      <item row="0" column="0">
+#      <item row="1" column="0">
 #       <widget class="QLabel" name="label_name">
 #        <property name="text">
 #         <string>Наименование:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="0" column="1">
+#      <item row="1" column="1">
 #       <widget class="QLineEdit" name="name_input"/>
 #      </item>
-#      <item row="1" column="0">
+#      <item row="2" column="0">
 #       <widget class="QLabel" name="label_category">
 #        <property name="text">
 #         <string>Категория:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="1" column="1">
+#      <item row="2" column="1">
 #       <widget class="QComboBox" name="category_combo">
 #        <item>
 #         <property name="text">
@@ -1572,24 +1572,24 @@ if __name__ == "__main__":
 #        </item>
 #       </widget>
 #      </item>
-#      <item row="2" column="0">
+#      <item row="3" column="0">
 #       <widget class="QLabel" name="label_description">
 #        <property name="text">
 #         <string>Описание:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="2" column="1">
+#      <item row="3" column="1">
 #       <widget class="QTextEdit" name="description_input"/>
 #      </item>
-#      <item row="3" column="0">
+#      <item row="4" column="0">
 #       <widget class="QLabel" name="label_manufacturer">
 #        <property name="text">
 #         <string>Производитель:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="3" column="1">
+#      <item row="4" column="1">
 #       <widget class="QComboBox" name="manufacturer_combo">
 #        <item>
 #         <property name="text">
@@ -1613,14 +1613,14 @@ if __name__ == "__main__":
 #        </item>
 #       </widget>
 #      </item>
-#      <item row="4" column="0">
+#      <item row="5" column="0">
 #       <widget class="QLabel" name="label_supplier">
 #        <property name="text">
 #         <string>Поставщик:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="4" column="1">
+#      <item row="5" column="1">
 #       <widget class="QComboBox" name="supplier_combo">
 #        <item>
 #         <property name="text">
@@ -1644,14 +1644,14 @@ if __name__ == "__main__":
 #        </item>
 #       </widget>
 #      </item>
-#      <item row="5" column="0">
+#      <item row="6" column="0">
 #       <widget class="QLabel" name="label_price">
 #        <property name="text">
 #         <string>Цена (₽):</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="5" column="1">
+#      <item row="6" column="1">
 #       <widget class="QDoubleSpinBox" name="price_input">
 #        <property name="decimals">
 #         <number>2</number>
@@ -1664,14 +1664,14 @@ if __name__ == "__main__":
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="6" column="0">
+#      <item row="7" column="0">
 #       <widget class="QLabel" name="label_unit">
 #        <property name="text">
 #         <string>Ед. измерения:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="6" column="1">
+#      <item row="7" column="1">
 #       <widget class="QComboBox" name="unit_combo">
 #        <item>
 #         <property name="text">
@@ -1685,14 +1685,14 @@ if __name__ == "__main__":
 #        </item>
 #       </widget>
 #      </item>
-#      <item row="7" column="0">
+#      <item row="8" column="0">
 #       <widget class="QLabel" name="label_quantity">
 #        <property name="text">
 #         <string>Количество на складе:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="7" column="1">
+#      <item row="8" column="1">
 #       <widget class="QSpinBox" name="quantity_input">
 #        <property name="minimum">
 #         <number>0</number>
@@ -1702,14 +1702,14 @@ if __name__ == "__main__":
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="8" column="0">
+#      <item row="9" column="0">
 #       <widget class="QLabel" name="label_discount">
 #        <property name="text">
 #         <string>Скидка (%):</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="8" column="1">
+#      <item row="9" column="1">
 #       <widget class="QDoubleSpinBox" name="discount_input">
 #        <property name="decimals">
 #         <number>2</number>
@@ -1722,17 +1722,34 @@ if __name__ == "__main__":
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="9" column="0">
+#      <item row="10" column="0">
 #       <widget class="QLabel" name="label_image">
 #        <property name="text">
 #         <string>Фото товара:</string>
 #        </property>
 #       </widget>
 #      </item>
-#      <item row="9" column="1">
+#      <item row="10" column="1">
 #       <widget class="QLineEdit" name="image_path_edit">
 #        <property name="placeholderText">
 #         <string>images/picture.png</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="0" column="0">
+#       <widget class="QLabel" name="label">
+#        <property name="text">
+#         <string>Id товара:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="0" column="1">
+#       <widget class="QLineEdit" name="id_input">
+#        <property name="enabled">
+#         <bool>true</bool>
+#        </property>
+#        <property name="readOnly">
+#         <bool>true</bool>
 #        </property>
 #       </widget>
 #      </item>
