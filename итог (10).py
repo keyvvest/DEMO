@@ -316,8 +316,8 @@ import pymysql
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QColor
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QHeaderView, QTableWidgetItem, QDialog
-
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QHeaderView, QTableWidgetItem, QDialog, QFileDialog
+# import shutil
 
 # ----------------------------------------------------------------------
 # База данных
@@ -449,10 +449,38 @@ class ProductEditDialog(QDialog):
 
         self.save_button.clicked.connect(self.save_product)
         self.cancel_button.clicked.connect(self.reject)
+        # self.pushButton.clicked.connect(self.choose_image)
 
         if product_id:
             self.load_product_data()
 
+    # def choose_image(self):
+    #     file_path, _ = QFileDialog.getOpenFileName(
+    #         self,
+    #         "Выбор изображения",
+    #         "",
+    #         "Images (*.png *.jpg *.jpeg)"
+    #     )
+    #
+    #     if not file_path:
+    #         return
+    #
+    #     # --- создаём папку images если нет ---
+    #     images_dir = "images"
+    #     os.makedirs(images_dir, exist_ok=True)
+    #
+    #     # --- имя файла ---
+    #     file_name = os.path.basename(file_path)
+    #     new_path = os.path.join(images_dir, file_name)
+    #
+    #     # --- копируем файл в проект ---
+    #     shutil.copy(file_path, new_path)
+    #
+    #     # --- сохраняем путь ---
+    #     self.image_path_edit.setText(new_path)
+    #
+
+    
     def load_product_data(self):
         cursor = self.db.connection.cursor()
         cursor.execute("""
@@ -516,6 +544,13 @@ class ProductEditDialog(QDialog):
             QMessageBox.warning(self, "Ошибка", "Цена должна быть больше 0")
             return
 
+        # pix = QPixmap(image_path)
+        #
+        # if not pix.isNull():
+        #     pix = pix.scaled(300, 200)
+        #     pix.save(image_path)
+
+        
         try:
             if self.product_id is None:
                 # Проверка уникальности названия
@@ -535,6 +570,15 @@ class ProductEditDialog(QDialog):
                 if cursor.fetchone():
                     QMessageBox.warning(self, "Ошибка", "Товар с таким названием уже существует")
                     return
+                    
+                # # --- получаем старое изображение ---
+                # cursor.execute("SELECT image_path FROM products WHERE id_product=%s", (self.product_id,))
+                # old_img = cursor.fetchone()[0]
+                #
+                # # --- если картинка изменилась ---
+                # if old_img and old_img != image_path and os.path.exists(old_img):
+                #     os.remove(old_img)
+                
                 cursor.execute("""
                     UPDATE products
                     SET product_name=%s, description=%s, price=%s, quantity_in_stock=%s,
