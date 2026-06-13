@@ -1,3 +1,315 @@
+# ----------------------------------------------------------------------
+# Скрипт базы данных
+# ----------------------------------------------------------------------
+-- =====================================================
+-- Создание БД
+-- =====================================================
+
+# CREATE DATABASE IF NOT EXISTS shoestore
+#     CHARACTER SET utf8mb4
+#     COLLATE utf8mb4_unicode_ci;
+
+# USE shoestore;
+
+# -- =====================================================
+# -- Таблица ролей
+# -- =====================================================
+
+# CREATE TABLE roles (
+#     id_role INT PRIMARY KEY AUTO_INCREMENT,
+#     role_name VARCHAR(20) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Таблица пользователей
+# -- =====================================================
+
+# CREATE TABLE users (
+#     id_user INT PRIMARY KEY AUTO_INCREMENT,
+#     username VARCHAR(40) NOT NULL UNIQUE,
+#     password VARCHAR(40) NOT NULL,
+#     full_name VARCHAR(70),
+#     role_id INT,
+#     FOREIGN KEY (role_id) REFERENCES roles(id_role)
+# );
+
+# -- =====================================================
+# -- Категории обуви
+# -- =====================================================
+
+# CREATE TABLE categories (
+#     id_category INT PRIMARY KEY AUTO_INCREMENT,
+#     category_name VARCHAR(40) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Производители
+# -- =====================================================
+
+# CREATE TABLE manufacturers (
+#     id_manufacturer INT PRIMARY KEY AUTO_INCREMENT,
+#     manufacturer_name VARCHAR(40) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Поставщики
+# -- =====================================================
+
+# CREATE TABLE suppliers (
+#     id_supplier INT PRIMARY KEY AUTO_INCREMENT,
+#     supplier_name VARCHAR(40) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Единицы измерения
+# -- =====================================================
+
+# CREATE TABLE units (
+#     id_unit INT PRIMARY KEY AUTO_INCREMENT,
+#     unit_name VARCHAR(40) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Товары
+# -- =====================================================
+
+# CREATE TABLE products (
+#     id_product INT PRIMARY KEY AUTO_INCREMENT,
+#     product_name VARCHAR(40) NOT NULL,
+#     description TEXT,
+#     price DECIMAL(10,2) NOT NULL,
+#     quantity_in_stock INT NOT NULL DEFAULT 0,
+#     discount DECIMAL(5,2) NOT NULL DEFAULT 0,
+#     image_path VARCHAR(255),
+#     category_id INT,
+#     manufacturer_id INT,
+#     supplier_id INT,
+#     unit_id INT,
+#     FOREIGN KEY (category_id) REFERENCES categories(id_category),
+#     FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id_manufacturer),
+#     FOREIGN KEY (supplier_id) REFERENCES suppliers(id_supplier),
+#     FOREIGN KEY (unit_id) REFERENCES units(id_unit)
+# );
+
+# -- =====================================================
+# -- Статусы заказов
+# -- =====================================================
+
+# CREATE TABLE order_statuses (
+#     id_status INT PRIMARY KEY AUTO_INCREMENT,
+#     status_name VARCHAR(40) NOT NULL UNIQUE
+# );
+
+# -- =====================================================
+# -- Точки выдачи
+# -- =====================================================
+
+# CREATE TABLE pickup_points (
+#     id_pickup_point INT PRIMARY KEY AUTO_INCREMENT,
+#     address VARCHAR(100) NOT NULL UNIQUE,
+#     phone VARCHAR(20),
+#     working_hours VARCHAR(100)
+# );
+
+# -- =====================================================
+# -- Заказы
+# -- =====================================================
+
+# CREATE TABLE orders (
+#     id_order INT PRIMARY KEY AUTO_INCREMENT,
+#     article VARCHAR(40) NOT NULL,
+#     order_date DATE NOT NULL,
+#     delivery_date DATE,
+#     status_id INT,
+#     user_id INT,
+#     pickup_point_id INT,
+#     FOREIGN KEY (status_id) REFERENCES order_statuses(id_status),
+#     FOREIGN KEY (user_id) REFERENCES users(id_user),
+#     FOREIGN KEY (pickup_point_id) REFERENCES pickup_points(id_pickup_point)
+# );
+
+# -- =====================================================
+# -- Позиции заказов
+# -- =====================================================
+
+# CREATE TABLE order_items (
+#     id_order_item INT PRIMARY KEY AUTO_INCREMENT,
+#     order_id INT,
+#     product_id INT,
+#     quantity INT NOT NULL,
+#     FOREIGN KEY (order_id)
+#         REFERENCES orders(id_order)
+#         ON DELETE CASCADE,
+#     FOREIGN KEY (product_id)
+#         REFERENCES products(id_product)
+# );
+
+# -- =====================================================
+# -- Заполнение таблиц
+# -- =====================================================
+
+# -- Роли
+# INSERT INTO roles (role_name) VALUES
+# ('Администратор'),
+# ('Клиент'),
+# ('Менеджер'),
+# ('Гость');
+
+# -- Пользователи
+# INSERT INTO users (username, password, full_name, role_id) VALUES
+# ('admin', 'admin', 'Иванов Иван Иванович', 1),
+# ('client', 'client', 'Петрова Анна Сергеевна', 2),
+# ('manager', 'manager', 'Сидоров Алексей Владимирович', 3),
+# ('guest', 'guest', 'Гость', 4);
+
+# -- Категории
+# INSERT INTO categories (category_name) VALUES
+# ('Туфли'),
+# ('Ботинки'),
+# ('Сапоги'),
+# ('Кроссовки'),
+# ('Сандалии');
+
+# -- Производители
+# INSERT INTO manufacturers (manufacturer_name) VALUES
+# ('Фабрика "Обувь-Стиль"'),
+# ('ЗАО "Комфорт"'),
+# ('ООО "Лидер"'),
+# ('ИП "Классика"');
+
+# -- Поставщики
+# INSERT INTO suppliers (supplier_name) VALUES
+# ('ООО "Туфли-Трейд"'),
+# ('ИП "Ботинки Опт"'),
+# ('ООО "Сапоги Плюс"'),
+# ('Склад "Кроссовки.ру"');
+
+# -- Единицы измерения
+# INSERT INTO units (unit_name) VALUES
+# ('пара'),
+# ('шт.');
+
+# -- Товары
+# INSERT INTO products (
+#     product_name,
+#     description,
+#     price,
+#     quantity_in_stock,
+#     discount,
+#     image_path,
+#     category_id,
+#     manufacturer_id,
+#     supplier_id,
+#     unit_id
+# ) VALUES
+# ('Туфли классические',
+#  'Мужские туфли из натуральной кожи, черные',
+#  4500.00, 25, 10.00, 'shoes1.jpg', 1, 1, 1, 1),
+
+# ('Ботинки зимние',
+#  'Утепленные ботинки на натуральном меху',
+#  7800.00, 12, 15.00, 'shoes2.jpg', 2, 2, 2, 1),
+
+# ('Сапоги резиновые',
+#  'Высокие сапоги для рыбалки',
+#  2900.00, 40, 5.00, 'shoes3.jpg', 3, 3, 3, 1),
+
+# ('Кроссовки беговые',
+#  'Легкие дышащие кроссовки',
+#  6200.00, 18, 20.00, 'shoes4.jpg', 4, 4, 4, 1),
+
+# ('Сандалии открытые',
+#  'Женские сандалии на платформе',
+#  3500.00, 30, 0.00, 'shoes5.jpg', 5, 2, 1, 1),
+
+# ('Туфли лаковая кожа',
+#  'Женские туфли на каблуке',
+#  5100.00, 8, 25.00, 'shoes6.jpg', 1, 1, 1, 1);
+
+# -- Статусы заказов
+# INSERT INTO order_statuses (status_name) VALUES
+# ('Новый'),
+# ('В обработке'),
+# ('Отправлен'),
+# ('Доставлен'),
+# ('Завершен'),
+# ('Отменен');
+
+# -- Точки выдачи
+# INSERT INTO pickup_points (
+#     address,
+#     phone,
+#     working_hours
+# ) VALUES
+# ('ТЦ "Галерея", ул. Ленина, 10',
+#  '+7 (900) 111-11-11',
+#  'Пн-Пт 10:00-20:00'),
+
+# ('Пункт выдачи №5, пр. Мира, 23',
+#  '+7 (900) 222-22-22',
+#  'Ежедневно 09:00-21:00'),
+
+# ('ТРЦ "Мега", ул. Победы, 45',
+#  '+7 (900) 333-33-33',
+#  'Ежедневно 10:00-22:00');
+
+# -- Заказы
+# INSERT INTO orders (
+#     article,
+#     order_date,
+#     delivery_date,
+#     status_id,
+#     user_id,
+#     pickup_point_id
+# ) VALUES
+# ('ORD-2025-001',
+#  CURDATE(),
+#  DATE_ADD(CURDATE(), INTERVAL 3 DAY),
+#  1,
+#  2,
+#  1),
+
+# ('ORD-2025-002',
+#  CURDATE(),
+#  DATE_ADD(CURDATE(), INTERVAL 5 DAY),
+#  2,
+#  2,
+#  2);
+
+# -- Позиции заказов
+# INSERT INTO order_items (
+#     order_id,
+#     product_id,
+#     quantity
+# ) VALUES
+# (1, 1, 2),
+# (1, 4, 1),
+# (2, 2, 1),
+# (2, 5, 3);
+
+# -- =====================================================
+# -- Индексы
+# -- =====================================================
+
+# CREATE INDEX idx_products_category
+# ON products(category_id);
+
+# CREATE INDEX idx_orders_user
+# ON orders(user_id);
+
+# CREATE INDEX idx_orders_status
+# ON orders(status_id);
+
+# CREATE INDEX idx_orders_pickup_point
+# ON orders(pickup_point_id);
+
+
+
+# ----------------------------------------------------------------------
+# ОСНОВНОЙ КОД
+# ----------------------------------------------------------------------
+
+
 import sys
 import os
 import pymysql
@@ -710,3 +1022,1017 @@ if __name__ == "__main__":
     #
     #     except Exception as e:
     #         QMessageBox.warning(self, "", f"Ошибка {e}")
+
+# ----------------------------------------------------------------------
+# ОСНОВНОЙ КОД
+# ----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
+# login.ui
+# ----------------------------------------------------------------------
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <ui version="4.0">
+#  <class>LoginWindow</class>
+#  <widget class="QMainWindow" name="LoginWindow">
+#   <property name="geometry">
+#    <rect>
+#     <x>0</x>
+#     <y>0</y>
+#     <width>400</width>
+#     <height>300</height>
+#    </rect>
+#   </property>
+#   <property name="windowTitle">
+#    <string>Вход в систему</string>
+#   </property>
+#   <widget class="QWidget" name="centralwidget">
+#    <layout class="QVBoxLayout" name="verticalLayout">
+#     <item>
+#      <widget class="QLabel" name="label_login">
+#       <property name="text">
+#        <string>Логин</string>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QLineEdit" name="username_input"/>
+#     </item>
+#     <item>
+#      <widget class="QLabel" name="label_pass">
+#       <property name="text">
+#        <string>Пароль</string>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QLineEdit" name="password_input">
+#       <property name="echoMode">
+#        <enum>QLineEdit::Password</enum>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QPushButton" name="login_button">
+#       <property name="text">
+#        <string>Войти</string>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QPushButton" name="guest_button">
+#       <property name="text">
+#        <string>Вход как гость</string>
+#       </property>
+#      </widget>
+#     </item>
+#    </layout>
+#   </widget>
+#  </widget>
+#  <resources/>
+#  <connections/>
+# </ui>
+
+
+
+
+# ----------------------------------------------------------------------
+# guest_window.ui
+# ----------------------------------------------------------------------
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <ui version="4.0">
+#  <class>GuestWindow</class>
+#  <widget class="QMainWindow" name="GuestWindow">
+#   <property name="geometry">
+#    <rect>
+#     <x>0</x>
+#     <y>0</y>
+#     <width>650</width>
+#     <height>450</height>
+#    </rect>
+#   </property>
+#   <property name="windowTitle">
+#    <string>Гость - Меню пиццерии</string>
+#   </property>
+#   <widget class="QWidget" name="centralwidget">
+#    <layout class="QVBoxLayout" name="verticalLayout">
+#     <item>
+#      <widget class="QLabel" name="label">
+#       <property name="text">
+#        <string/>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QTableWidget" name="menu_list">
+#       <property name="styleSheet">
+#        <string notr="true">color: black;</string>
+#       </property>
+#       <property name="editTriggers">
+#        <set>QAbstractItemView::NoEditTriggers</set>
+#       </property>
+#       <property name="showGrid">
+#        <bool>false</bool>
+#       </property>
+#       <attribute name="horizontalHeaderVisible">
+#        <bool>false</bool>
+#       </attribute>
+#       <attribute name="verticalHeaderVisible">
+#        <bool>false</bool>
+#       </attribute>
+#       <attribute name="verticalHeaderDefaultSectionSize">
+#        <number>170</number>
+#       </attribute>
+#       <column>
+#        <property name="text">
+#         <string/>
+#        </property>
+#       </column>
+#       <column>
+#        <property name="text">
+#         <string/>
+#        </property>
+#       </column>
+#       <column>
+#        <property name="text">
+#         <string/>
+#        </property>
+#       </column>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QPushButton" name="logout_button">
+#       <property name="styleSheet">
+#        <string notr="true"/>
+#       </property>
+#       <property name="text">
+#        <string>Выйти</string>
+#       </property>
+#      </widget>
+#     </item>
+#    </layout>
+#   </widget>
+#  </widget>
+#  <resources/>
+#  <connections/>
+# </ui>
+
+
+# ----------------------------------------------------------------------
+# admin_window.ui
+# ----------------------------------------------------------------------
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <ui version="4.0">
+#  <class>AdminWindow</class>
+#  <widget class="QMainWindow" name="AdminWindow">
+#   <property name="geometry">
+#    <rect>
+#     <x>0</x>
+#     <y>0</y>
+#     <width>1100</width>
+#     <height>650</height>
+#    </rect>
+#   </property>
+#   <property name="windowTitle">
+#    <string>Администратор – Магазин обуви</string>
+#   </property>
+#   <widget class="QWidget" name="centralwidget">
+#    <layout class="QVBoxLayout" name="verticalLayout">
+#     <item>
+#      <widget class="QTabWidget" name="tabWidget">
+#       <property name="currentIndex">
+#        <number>0</number>
+#       </property>
+#       <widget class="QWidget" name="tab_products">
+#        <attribute name="title">
+#         <string>Товары</string>
+#        </attribute>
+#        <layout class="QVBoxLayout" name="verticalLayout_products">
+#         <item>
+#          <layout class="QHBoxLayout" name="productsSearchLayout">
+#           <item>
+#            <widget class="QLabel" name="label_search">
+#             <property name="text">
+#              <string>Поиск:</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QLineEdit" name="search_input">
+#             <property name="placeholderText">
+#              <string>Введите текст...</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QLabel" name="label_supplier">
+#             <property name="text">
+#              <string>Поставщик:</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QComboBox" name="supplier_combo">
+#             <item>
+#              <property name="text">
+#               <string>Все поставщики</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>ООО &quot;Туфли-Трейд&quot;</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>ИП &quot;Ботинки Опт&quot;</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>ООО &quot;Сапоги Плюс&quot;</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>Склад &quot;Кроссовки.ру&quot;</string>
+#              </property>
+#             </item>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QLabel" name="label_sort">
+#             <property name="text">
+#              <string>Сортировка по кол-ву:</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QComboBox" name="sort_combo">
+#             <item>
+#              <property name="text">
+#               <string>Без сортировки</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>По возрастанию</string>
+#              </property>
+#             </item>
+#             <item>
+#              <property name="text">
+#               <string>По убыванию</string>
+#              </property>
+#             </item>
+#            </widget>
+#           </item>
+#          </layout>
+#         </item>
+#         <item>
+#          <widget class="QTableWidget" name="menu_list">
+#           <property name="styleSheet">
+#            <string notr="true">color: black;</string>
+#           </property>
+#           <property name="showGrid">
+#            <bool>false</bool>
+#           </property>
+#           <attribute name="horizontalHeaderVisible">
+#            <bool>false</bool>
+#           </attribute>
+#           <attribute name="verticalHeaderVisible">
+#            <bool>false</bool>
+#           </attribute>
+#           <attribute name="verticalHeaderDefaultSectionSize">
+#            <number>170</number>
+#           </attribute>
+#           <column>
+#            <property name="text">
+#             <string/>
+#            </property>
+#           </column>
+#           <column>
+#            <property name="text">
+#             <string/>
+#            </property>
+#           </column>
+#           <column>
+#            <property name="text">
+#             <string/>
+#            </property>
+#           </column>
+#          </widget>
+#         </item>
+#         <item>
+#          <layout class="QHBoxLayout" name="tab_orders_2">
+#           <item>
+#            <widget class="QPushButton" name="add_product_btn">
+#             <property name="text">
+#              <string>Добавить товар</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QPushButton" name="edit_product_btn">
+#             <property name="text">
+#              <string>Редактировать</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QPushButton" name="delete_product_btn">
+#             <property name="text">
+#              <string>Удалить</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QWidget" name="stretch_products" native="true">
+#             <property name="sizePolicy">
+#              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+#               <horstretch>0</horstretch>
+#               <verstretch>0</verstretch>
+#              </sizepolicy>
+#             </property>
+#            </widget>
+#           </item>
+#          </layout>
+#         </item>
+#        </layout>
+#       </widget>
+#       <widget class="QWidget" name="tab_orders">
+#        <attribute name="title">
+#         <string>Заказы</string>
+#        </attribute>
+#        <layout class="QVBoxLayout" name="verticalLayout_orders">
+#         <item>
+#          <widget class="QTableWidget" name="orders_list">
+#           <property name="editTriggers">
+#            <set>QAbstractItemView::NoEditTriggers</set>
+#           </property>
+#           <property name="showGrid">
+#            <bool>true</bool>
+#           </property>
+#           <attribute name="horizontalHeaderVisible">
+#            <bool>false</bool>
+#           </attribute>
+#           <attribute name="verticalHeaderVisible">
+#            <bool>false</bool>
+#           </attribute>
+#           <attribute name="verticalHeaderDefaultSectionSize">
+#            <number>100</number>
+#           </attribute>
+#           <attribute name="verticalHeaderHighlightSections">
+#            <bool>false</bool>
+#           </attribute>
+#           <column>
+#            <property name="text">
+#             <string/>
+#            </property>
+#           </column>
+#           <column>
+#            <property name="text">
+#             <string/>
+#            </property>
+#           </column>
+#          </widget>
+#         </item>
+#         <item>
+#          <layout class="QHBoxLayout" name="tab_orders_3">
+#           <item>
+#            <widget class="QPushButton" name="add_order_btn">
+#             <property name="text">
+#              <string>Добавить заказ</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QPushButton" name="edit_order_btn">
+#             <property name="text">
+#              <string>Редактировать</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QPushButton" name="delete_order_btn">
+#             <property name="text">
+#              <string>Удалить</string>
+#             </property>
+#            </widget>
+#           </item>
+#           <item>
+#            <widget class="QWidget" name="stretch_orders" native="true">
+#             <property name="sizePolicy">
+#              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+#               <horstretch>0</horstretch>
+#               <verstretch>0</verstretch>
+#              </sizepolicy>
+#             </property>
+#            </widget>
+#           </item>
+#          </layout>
+#         </item>
+#        </layout>
+#       </widget>
+#      </widget>
+#     </item>
+#     <item>
+#      <widget class="QPushButton" name="logout_button">
+#       <property name="text">
+#        <string>Выйти из системы</string>
+#       </property>
+#      </widget>
+#     </item>
+#    </layout>
+#   </widget>
+#  </widget>
+#  <resources/>
+#  <connections/>
+# </ui>
+
+
+# ----------------------------------------------------------------------
+# add_product_dialog.ui
+# ----------------------------------------------------------------------
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <ui version="4.0">
+#  <class>AddProductDialog</class>
+#  <widget class="QDialog" name="AddProductDialog">
+#   <property name="geometry">
+#    <rect>
+#     <x>0</x>
+#     <y>0</y>
+#     <width>550</width>
+#     <height>550</height>
+#    </rect>
+#   </property>
+#   <property name="windowTitle">
+#    <string>Товар</string>
+#   </property>
+#   <layout class="QVBoxLayout" name="verticalLayout">
+#    <item>
+#     <layout class="QFormLayout" name="formLayout">
+#      <item row="0" column="0">
+#       <widget class="QLabel" name="label_name">
+#        <property name="text">
+#         <string>Наименование:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="0" column="1">
+#       <widget class="QLineEdit" name="name_input"/>
+#      </item>
+#      <item row="1" column="0">
+#       <widget class="QLabel" name="label_category">
+#        <property name="text">
+#         <string>Категория:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="1" column="1">
+#       <widget class="QComboBox" name="category_combo">
+#        <item>
+#         <property name="text">
+#          <string>Туфли</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Ботинки</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Сапоги</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Кроссовки</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Сандалии</string>
+#         </property>
+#        </item>
+#       </widget>
+#      </item>
+#      <item row="2" column="0">
+#       <widget class="QLabel" name="label_description">
+#        <property name="text">
+#         <string>Описание:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="2" column="1">
+#       <widget class="QTextEdit" name="description_input"/>
+#      </item>
+#      <item row="3" column="0">
+#       <widget class="QLabel" name="label_manufacturer">
+#        <property name="text">
+#         <string>Производитель:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="3" column="1">
+#       <widget class="QComboBox" name="manufacturer_combo">
+#        <item>
+#         <property name="text">
+#          <string>Фабрика &quot;Обувь-Стиль&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>ЗАО &quot;Комфорт&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>ООО &quot;Лидер&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>ИП &quot;Классика&quot;</string>
+#         </property>
+#        </item>
+#       </widget>
+#      </item>
+#      <item row="4" column="0">
+#       <widget class="QLabel" name="label_supplier">
+#        <property name="text">
+#         <string>Поставщик:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="4" column="1">
+#       <widget class="QComboBox" name="supplier_combo">
+#        <item>
+#         <property name="text">
+#          <string>ООО &quot;Туфли-Трейд&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>ИП &quot;Ботинки Опт&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>ООО &quot;Сапоги Плюс&quot;</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Склад &quot;Кроссовки.ру&quot;</string>
+#         </property>
+#        </item>
+#       </widget>
+#      </item>
+#      <item row="5" column="0">
+#       <widget class="QLabel" name="label_price">
+#        <property name="text">
+#         <string>Цена (₽):</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="5" column="1">
+#       <widget class="QDoubleSpinBox" name="price_input">
+#        <property name="decimals">
+#         <number>2</number>
+#        </property>
+#        <property name="minimum">
+#         <double>0.000000000000000</double>
+#        </property>
+#        <property name="maximum">
+#         <double>999999.989999999990687</double>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="6" column="0">
+#       <widget class="QLabel" name="label_unit">
+#        <property name="text">
+#         <string>Ед. измерения:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="6" column="1">
+#       <widget class="QComboBox" name="unit_combo">
+#        <item>
+#         <property name="text">
+#          <string>пара</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>шт.</string>
+#         </property>
+#        </item>
+#       </widget>
+#      </item>
+#      <item row="7" column="0">
+#       <widget class="QLabel" name="label_quantity">
+#        <property name="text">
+#         <string>Количество на складе:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="7" column="1">
+#       <widget class="QSpinBox" name="quantity_input">
+#        <property name="minimum">
+#         <number>0</number>
+#        </property>
+#        <property name="maximum">
+#         <number>999999</number>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="8" column="0">
+#       <widget class="QLabel" name="label_discount">
+#        <property name="text">
+#         <string>Скидка (%):</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="8" column="1">
+#       <widget class="QDoubleSpinBox" name="discount_input">
+#        <property name="decimals">
+#         <number>2</number>
+#        </property>
+#        <property name="minimum">
+#         <double>0.000000000000000</double>
+#        </property>
+#        <property name="maximum">
+#         <double>100.000000000000000</double>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="9" column="0">
+#       <widget class="QLabel" name="label_image">
+#        <property name="text">
+#         <string>Фото товара:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="9" column="1">
+#       <widget class="QLineEdit" name="image_path_edit">
+#        <property name="placeholderText">
+#         <string>images/picture.png</string>
+#        </property>
+#       </widget>
+#      </item>
+#     </layout>
+#    </item>
+#    <item>
+#     <layout class="QHBoxLayout" name="buttonLayout">
+#      <item>
+#       <spacer name="horizontalSpacer">
+#        <property name="orientation">
+#         <enum>Qt::Horizontal</enum>
+#        </property>
+#        <property name="sizeHint" stdset="0">
+#         <size>
+#          <width>40</width>
+#          <height>20</height>
+#         </size>
+#        </property>
+#       </spacer>
+#      </item>
+#      <item>
+#       <widget class="QPushButton" name="save_button">
+#        <property name="text">
+#         <string>Сохранить</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item>
+#       <widget class="QPushButton" name="cancel_button">
+#        <property name="text">
+#         <string>Отмена</string>
+#        </property>
+#       </widget>
+#      </item>
+#     </layout>
+#    </item>
+#   </layout>
+#  </widget>
+#  <resources/>
+#  <connections/>
+# </ui>
+
+
+
+# ----------------------------------------------------------------------
+# order_dialog.ui
+# ----------------------------------------------------------------------
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <ui version="4.0">
+#  <class>OrderDialog</class>
+#  <widget class="QDialog" name="OrderDialog">
+#   <property name="geometry">
+#    <rect>
+#     <x>0</x>
+#     <y>0</y>
+#     <width>400</width>
+#     <height>350</height>
+#    </rect>
+#   </property>
+#   <property name="windowTitle">
+#    <string>Заказ</string>
+#   </property>
+#   <layout class="QVBoxLayout" name="verticalLayout">
+#    <item>
+#     <layout class="QFormLayout" name="formLayout">
+#      <item row="0" column="0">
+#       <widget class="QLabel" name="label_article">
+#        <property name="text">
+#         <string>Артикул:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="0" column="1">
+#       <widget class="QLineEdit" name="article_edit"/>
+#      </item>
+#      <item row="1" column="0">
+#       <widget class="QLabel" name="label_status">
+#        <property name="text">
+#         <string>Статус заказа:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="1" column="1">
+#       <widget class="QComboBox" name="status_combo">
+#        <item>
+#         <property name="text">
+#          <string>Новый</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>В обработке</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Отправлен</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Доставлен</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Завершен</string>
+#         </property>
+#        </item>
+#        <item>
+#         <property name="text">
+#          <string>Отменен</string>
+#         </property>
+#        </item>
+#       </widget>
+#      </item>
+#      <item row="2" column="0">
+#       <widget class="QLabel" name="label_address">
+#        <property name="text">
+#         <string>Адрес пункта выдачи:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="2" column="1">
+#       <widget class="QLineEdit" name="address_edit"/>
+#      </item>
+#      <item row="3" column="0">
+#       <widget class="QLabel" name="label_order_date">
+#        <property name="text">
+#         <string>Дата заказа:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="3" column="1">
+#       <widget class="QDateEdit" name="order_date_edit">
+#        <property name="calendarPopup">
+#         <bool>true</bool>
+#        </property>
+#        <property name="date">
+#         <date>
+#          <year>2000</year>
+#          <month>1</month>
+#          <day>1</day>
+#         </date>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="4" column="0">
+#       <widget class="QLabel" name="label_delivery_date">
+#        <property name="text">
+#         <string>Дата доставки:</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="4" column="1">
+#       <widget class="QDateEdit" name="delivery_date_edit">
+#        <property name="calendarPopup">
+#         <bool>true</bool>
+#        </property>
+#        <property name="date">
+#         <date>
+#          <year>2000</year>
+#          <month>1</month>
+#          <day>1</day>
+#         </date>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="5" column="0">
+#       <layout class="QHBoxLayout" name="horizontalLayout"/>
+#      </item>
+#      <item row="6" column="0">
+#       <widget class="QPushButton" name="save_button">
+#        <property name="text">
+#         <string>Сохранить</string>
+#        </property>
+#       </widget>
+#      </item>
+#      <item row="6" column="1">
+#       <widget class="QPushButton" name="cancel_button">
+#        <property name="text">
+#         <string>Отменить</string>
+#        </property>
+#       </widget>
+#      </item>
+#     </layout>
+#    </item>
+#   </layout>
+#  </widget>
+#  <resources/>
+#  <connections/>
+# </ui>
+
+# ----------------------------------------------------------------------
+# README
+# ----------------------------------------------------------------------
+
+"""
+# 👟 Shoe Store Management System
+
+**Система управления магазином обуви с ролевой моделью доступа**
+*Python + PyQt6 + MySQL*
+
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![PyQt6](https://img.shields.io/badge/PyQt6-GUI-green)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
+
+---
+
+## 📌 Основные возможности
+
+* 🔐 Авторизация по логину и паролю
+* 🚪 Гостевой вход без авторизации
+* 👥 Ролевая модель доступа:
+
+  * Гость
+  * Клиент
+  * Менеджер
+  * Администратор
+* 👟 Просмотр каталога товаров
+* 🔍 Поиск, фильтрация и сортировка товаров
+* 📦 Управление заказами
+* 🎨 Визуальная индикация скидок и остатков товара
+* 🛠️ CRUD-операции для товаров и заказов (в зависимости от роли)
+
+---
+
+## 🚀 Быстрый старт
+
+### 1. Установка зависимостей
+
+```bash
+pip install pymysql PyQt6
+```
+
+### 2. Импорт базы данных
+
+Создайте базу данных:
+
+```sql
+CREATE DATABASE shoestore;
+```
+
+Затем выполните файл `database.sql`, содержащий структуру таблиц и тестовые данные.
+
+### 3. Запуск приложения
+
+```bash
+python main.py
+```
+
+> ⚠️ Важно: все файлы `.ui` должны находиться в одной директории с файлом `main.py`.
+
+---
+
+## 🔑 Тестовые учетные записи
+
+| Роль             | Логин     | Пароль    |
+| ---------------- | --------- | --------- |
+| 👑 Администратор | `admin`   | `admin`   |
+| 📊 Менеджер      | `manager` | `manager` |
+| 🧑‍💼 Клиент     | `client`  | `client`  |
+| 🚪 Гость         | `guest`   | `guest`   |
+
+Также доступна кнопка **«Войти как гость»**, позволяющая выполнить вход без ввода логина и пароля.
+
+---
+
+## 🧠 Возможности ролей
+
+| Роль             | Просмотр товаров | Поиск / Фильтр / Сортировка | Управление товарами | Просмотр заказов | Управление заказами |
+| ---------------- | :--------------: | :-------------------------: | :-----------------: | :--------------: | :-----------------: |
+| 🚪 Гость         |         ✅        |              ❌              |          ❌          |         ❌        |          ❌          |
+| 🧑‍💼 Клиент     |         ✅        |              ❌              |          ❌          |         ❌        |          ❌          |
+| 📊 Менеджер      |         ✅        |              ✅              |          ❌          |         ✅        |          ❌          |
+| 👑 Администратор |         ✅        |              ✅              |       ✅ (CRUD)      |         ✅        |       ✅ (CRUD)      |
+
+> **CRUD** — создание, чтение, редактирование и удаление записей.
+
+---
+
+## 🎨 Визуальные особенности
+
+### Остатки товара
+
+| Цвет       | Значение                                              |
+| ---------- | ----------------------------------------------------- |
+| 🔵 Голубой | Товар отсутствует на складе (`quantity_in_stock = 0`) |
+
+### Скидки
+
+| Цвет         | Значение         |
+| ------------ | ---------------- |
+| 🟢 `#2E8B57` | Скидка более 15% |
+
+Дополнительно:
+
+* ❌ Старая цена отображается зачёркнутой красным цветом.
+* 💰 Итоговая цена отображается чёрным цветом.
+
+---
+
+## 📁 Структура проекта
+
+```text
+.
+├── main.py                   # Основной исполняемый файл
+├── login.ui                  # Окно авторизации
+├── guest_window.ui           # Интерфейс гостя и клиента
+├── admin_window.ui           # Интерфейс администратора и менеджера
+├── add_product_dialog.ui     # Диалог добавления/редактирования товара
+├── order_dialog.ui           # Диалог добавления/редактирования заказа
+├── images/
+│   └── picture.png           # Изображение-заглушка
+└── database.sql              # Скрипт базы данных
+```
+
+---
+
+## 🛠️ Настройка подключения к базе данных
+
+При необходимости измените параметры подключения в классе `Database` (`main.py`):
+
+```python
+self.connection = pymysql.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="shoestore"
+)
+```
+
+---
+
+## 📄 Примечания
+
+* ⚠️ Пароли хранятся в открытом виде. Для учебного проекта это допустимо, однако в реальных системах рекомендуется использовать хеширование.
+* ⚠️ При создании нового заказа администратором значение `user_id` автоматически устанавливается в `1` (упрощение согласно требованиям проекта).
+* ⚠️ Для корректного отображения изображений убедитесь, что пути, указанные в поле `image_path` таблицы `products`, соответствуют существующим файлам.
+
+---
+
+## 🎓 Учебный проект
+
+Проект разработан в образовательных целях для демонстрации:
+
+* работы с **PyQt6**;
+* взаимодействия с **MySQL** через **PyMySQL**;
+* реализации **ролевой модели доступа**;
+* выполнения **CRUD-операций**;
+* построения настольных приложений на Python.
+"""
