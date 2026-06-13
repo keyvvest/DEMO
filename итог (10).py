@@ -323,11 +323,13 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QHea
 # База данных
 # ----------------------------------------------------------------------
 
+# Класс для подключения к базе данных MySQL
 class Database:
     def __init__(self):
         self.connection = None
         self.connect()
 
+    # Устанавливаем соединение с БД
     def connect(self):
         try:
             self.connection = pymysql.connect(host="localhost", user="root", password="root", database="shoestore")
@@ -337,12 +339,13 @@ class Database:
             print(e)
 
 
-
+# Класс отвечает за загрузку товаров в таблицу интерфейса
 class ProductTableLoader:
     def __init__(self, db_connection):
         self.db_connection = db_connection
         self.product_ids = []  # список ID товаров в порядке строк таблицы
 
+    # Основной метод загрузки товаров в таблицу
     def load_to_table(self, table_widget, search_text="", supplier="Все поставщики", sort_by_stock=0):
         cursor = self.db_connection.cursor()
         query = """
@@ -379,6 +382,8 @@ class ProductTableLoader:
         table_widget.setColumnWidth(2, 100)
 
         self.product_ids = []
+
+        # Заполняем таблицу построчно
         for i, (pid, cat, name, desc, manuf, sup, price, unit, stock, img, disc) in enumerate(rows):
             self.product_ids.append(pid)
             # ---------- Колонка 0: Фото ----------
@@ -434,7 +439,7 @@ class ProductTableLoader:
 
 
 
-
+# Окно добавления / редактирования товара
 class ProductEditDialog(QDialog):
     def __init__(self, db, product_id=None, parent=None):
         super().__init__(parent)
@@ -444,12 +449,15 @@ class ProductEditDialog(QDialog):
 
         if product_id is None:
             self.setWindowTitle("Добавление товара")
+            self.label.hide()
+            self.id_input.hide()
         else:
             self.setWindowTitle("Редактирование товара")
 
         self.save_button.clicked.connect(self.save_product)
         self.cancel_button.clicked.connect(self.reject)
         # self.pushButton.clicked.connect(self.choose_image)
+
 
         if product_id:
             self.load_product_data()
@@ -480,9 +488,9 @@ class ProductEditDialog(QDialog):
     #     self.image_path_edit.setText(new_path)
     #
 
-    
     def load_product_data(self):
         cursor = self.db.connection.cursor()
+        self.id_input.setText(str(self.product_id))
         cursor.execute("""
             SELECT p.product_name, p.description, p.price, p.quantity_in_stock, p.discount, p.image_path, c.category_name, m.manufacturer_name, s.supplier_name, u.unit_name
             FROM products p
@@ -550,7 +558,6 @@ class ProductEditDialog(QDialog):
         #     pix = pix.scaled(300, 200)
         #     pix.save(image_path)
 
-        
         try:
             if self.product_id is None:
                 # Проверка уникальности названия
@@ -570,7 +577,6 @@ class ProductEditDialog(QDialog):
                 if cursor.fetchone():
                     QMessageBox.warning(self, "Ошибка", "Товар с таким названием уже существует")
                     return
-                    
                 # # --- получаем старое изображение ---
                 # cursor.execute("SELECT image_path FROM products WHERE id_product=%s", (self.product_id,))
                 # old_img = cursor.fetchone()[0]
@@ -578,7 +584,6 @@ class ProductEditDialog(QDialog):
                 # # --- если картинка изменилась ---
                 # if old_img and old_img != image_path and os.path.exists(old_img):
                 #     os.remove(old_img)
-                
                 cursor.execute("""
                     UPDATE products
                     SET product_name=%s, description=%s, price=%s, quantity_in_stock=%s,
@@ -595,6 +600,7 @@ class ProductEditDialog(QDialog):
             QMessageBox.critical(self, "Ошибка", f"Ошибка сохранения: {e}")
 
 
+# Окно добавления / редактирования заказа
 class OrderEditDialog(QDialog):
     def __init__(self, db, order_id=None, parent=None):
         super().__init__(parent)
@@ -697,6 +703,7 @@ class OrderEditDialog(QDialog):
 # ----------------------------------------------------------------------
 # Окно входа
 # ----------------------------------------------------------------------
+# Главное окно авторизации
 class LoginWindow(QMainWindow):
     def __init__(self):
         super().__init__()
