@@ -314,7 +314,7 @@ import os
 import pymysql
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap, QColor
+from PyQt6.QtGui import QPixmap, QColor, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLabel, QHeaderView, QTableWidgetItem, QDialog, QFileDialog
 # import shutil
 
@@ -1049,6 +1049,7 @@ class AdminWindow(QMainWindow):
 # ----------------------------------------------------------------------
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("images/icon.png"))
     window = LoginWindow()
     window.show()
     sys.exit(app.exec())
