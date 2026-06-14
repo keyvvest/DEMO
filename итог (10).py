@@ -712,6 +712,7 @@ class LoginWindow(QMainWindow):
         uic.loadUi("login.ui", self)
         self.login_button.clicked.connect(self.auth)
         self.guest_button.clicked.connect(self.guest_auth)
+        self.label.setPixmap(QPixmap("images/icon.png").scaled(50, 50, Qt.AspectRatioMode.KeepAspectRatio))
 
     def guest_auth(self):
         self.cur_user = {'id': 0, 'username': "guest", 'full_name': "Гость", 'role': "Гость"}
@@ -1106,6 +1107,16 @@ if __name__ == "__main__":
 #   <widget class="QWidget" name="centralwidget">
 #    <layout class="QVBoxLayout" name="verticalLayout">
 #     <item>
+#      <widget class="QLabel" name="label">
+#       <property name="text">
+#        <string/>
+#       </property>
+#       <property name="alignment">
+#        <set>Qt::AlignCenter</set>
+#       </property>
+#      </widget>
+#     </item>
+#     <item>
 #      <widget class="QLabel" name="label_login">
 #       <property name="text">
 #        <string>Логин</string>
@@ -1149,6 +1160,7 @@ if __name__ == "__main__":
 #  <resources/>
 #  <connections/>
 # </ui>
+
 
 
 
