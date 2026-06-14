@@ -309,7 +309,6 @@
 # ОСНОВНОЙ КОД
 # ----------------------------------------------------------------------
 
-
 import sys
 import os
 import pymysql
@@ -874,7 +873,7 @@ class GuestWindow(QMainWindow):
         self.user = user
         self.login_window = None
         uic.loadUi("guest_window.ui", self)
-
+        self.label.setText(f"Добро пожаловать, роль: {self.user['role']}, ФИО: {self.user['full_name']}")
         ProductTableLoader(self.db.connection).load_to_table(self.menu_list)
         self.logout_button.clicked.connect(self.logout)
 
@@ -1073,6 +1072,11 @@ if __name__ == "__main__":
     #
     #     except Exception as e:
     #         QMessageBox.warning(self, "", f"Ошибка {e}")
+
+
+
+
+
 
 # ----------------------------------------------------------------------
 # ОСНОВНОЙ КОД
